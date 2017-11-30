@@ -1,0 +1,57 @@
+<div class="main-content" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Demande de congé</h4>
+                    </div>
+                    <div class="content">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Dâte départ</label>
+                                        <input type="date" class="form-control"  placeholder="Infotel" value="Infotel">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                            <div class="form-group">
+                                        <label>Dâte retour</label>
+                                        <input type="date" class="form-control"  placeholder="Infotel" value="Infotel">
+                                    </div>
+                                </div>
+                            </div>                              
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Motif</label>
+                                        <select id="select" class="form-control">
+										  <option value="CP" selected>Congés payé</option> 
+										  <option value="SS" >Congés sans solde</option>
+										  <option value="PC" >Pont client (si pas déjà fait collectivement)</option>
+										  <option value="CE" >Congé exceptionnel (preciser le motif)</option>
+										  <option value="RC" >Récupération pour astreinte ou jours fériés</option>
+										</select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 hidden">
+                                </div>
+                            </div>
+                            <div class="row">
+								<div class="col-md-12">
+										<div class="form-group">
+											<label>Autres précisions</label>
+											<textarea class="form-control" name="comment" placeholder="..."></textarea>
+										</div>
+								</div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-fill pull-right">Envoyer</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

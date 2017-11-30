@@ -1,0 +1,33 @@
+.logo-img1 {
+	
+	width:250px;
+	padding-left:20%;
+	padding-top: 2%; 
+}
+
+.tabCollapse{
+margin-left:3%;
+font-size: 120%;
+text-align:left;
+}
+
+td,th{
+	
+text-align:center;
+}
+
+
+@media screen and (max-width: 320px) {
+  p,div,span,h4 {
+    font-size: 94%;
+  }
+  h1 {
+    font-size: 20px;  
+  }
+  h2 {
+    font-size: 18px;  
+  }
+  h3 {
+    font-size: 16px;  
+  }
+}
