@@ -12,7 +12,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Société</label>
-                                        <select id="select" class="form-control" name="societe" ngModel>
+                                        <select id="select" class="form-control" name="societe" [(ngModel)]="currentUser.societe" ngModel>
 										  <option value="002" selected>Infotel</option>
 										</select>
                                     </div>
@@ -20,7 +20,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
 									<label>Email Responsable</label>
-                                        <input type="email" class="form-control" name="emailResp" placeholder="Email" [(ngModel)]="userModel.emailResp"  ngModel>
+                                        <input type="email" class="form-control" name="emailResp" placeholder="Email" [(ngModel)]="currentUser.emailResp" ngModel>
                                     </div>
                                 </div>
                             </div>                              
@@ -28,13 +28,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Nom</label>
-                                        <input type="text" class="form-control"  name="nom" placeholder="Nom" ngModel>
+                                        <input type="text" class="form-control"  name="nom" placeholder="Nom" [(ngModel)]="currentUser.nom" ngModel>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Prénom</label>
-                                        <input type="text" class="form-control"name="prenom" placeholder="Prénom"  ngModel>
+                                        <input type="text" class="form-control"name="prenom" placeholder="Prénom" [(ngModel)]="currentUser.prenom" ngModel>
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@
 							<div class="col-md-6 ">
                                     <div class="form-group">
                                         <label>Matricule</label>
-                                        <input type="text" class="form-control"  name="matricule" placeholder="Matricule"  ngModel>
+                                        <input type="text" class="form-control"  name="matricule" placeholder="Matricule" [(ngModel)]="currentUser.matricule" ngModel>
                                     </div>
                                 </div>
                                 <div class="col-md-6 hidden"></div>

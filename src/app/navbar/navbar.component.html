@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default"  *ngIf="isLoggedIn$ | async as isLoggedIn">
+<nav class="navbar navbar-default"  *ngIf="nav.visible">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" (click)="sidebarToggle()">
@@ -10,20 +10,9 @@
             <a class="navbar-brand" href="#" >{{getTitle()}}</a>
         </div>
         <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-left">
-                <li>             
-                        <p class="hidden-lg hidden-md">cc</p>                
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-center">
-                <li>                   
-                        <p class="hidden-lg hidden-md">Solde : -4</p>    
-						
-                </li>
-            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                        <p class="navbar-brand">email@email.fr</p>
+                        <p class="navbar-brand">Bonjour {{currentUser.prenom}},</p>
 						
                 </li>
 

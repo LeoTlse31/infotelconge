@@ -8,22 +8,24 @@ import { User }    from '../user';
 })
 export class ProfilComponent implements OnInit {
 
+	currentUser: any = {};
+	
   constructor() { 
  
   
   }
 
-    userModel = new User(1, '', '', '', '', '', '', null);
+   
 
   submitted = false;
 
   onSubmit(form: any): void { 
- 
-	let user = new User(1, form['nom'],form['prenom'],'','',form['emailResp'],form['societe'],form['matricule']);
-	this.userModel = user;
-	console.log('My user :', user);
+
   }
+  
   ngOnInit() {
+	  this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+	  console.log('My user :', this.currentUser);
   }
 
 }

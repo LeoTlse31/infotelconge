@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from './../services/auth.service';
+import { NavbarService } from '../services/navbar.service';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -14,7 +15,7 @@ export const ROUTES: RouteInfo[] = [
     { path: 'profil', title: 'Profil',  icon:'pe-7s-user', class: '' },
 	{ path: 'saisie', title: 'Saisie congé',  icon:'pe-7s-note', class: '' },
 	{ path: 'historique', title: 'Historique',  icon:'pe-7s-hourglass', class: '' },
-    { path: 'logout', title: 'Déconnexion',  icon:'pe-7s-power', class: '' },
+    { path: 'login', title: 'Déconnexion',  icon:'pe-7s-power', class: '' },
 ];
 
 @Component({
@@ -24,7 +25,7 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 isLoggedIn$: Observable<boolean>;       
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, public nav: NavbarService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);

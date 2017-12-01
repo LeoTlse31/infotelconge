@@ -3,6 +3,7 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from './../services/auth.service';
+import { NavbarService } from '../services/navbar.service';
 
 @Component({
     // moduleId: module.id,
@@ -12,18 +13,20 @@ import { AuthService } from './../services/auth.service';
 
 export class NavbarComponent implements OnInit{
 			
+	currentUser: any = {};		
     private listTitles: any[];
     location: Location;
     private toggleButton: any;
     private sidebarVisible: boolean;
 	isLoggedIn$: Observable<boolean>;  
 	
-    constructor(location: Location,  private element: ElementRef, private authService: AuthService) {
+    constructor(location: Location,  private element: ElementRef, private authService: AuthService,public nav: NavbarService) {
       this.location = location;
           this.sidebarVisible = false;
     }
 
     ngOnInit(){
+	  this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 	  this.isLoggedIn$ = this.authService.isLoggedIn;		
       this.listTitles = ROUTES.filter(listTitle => listTitle);
       const navbar: HTMLElement = this.element.nativeElement;
