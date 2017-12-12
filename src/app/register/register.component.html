@@ -1,6 +1,6 @@
     <div class="container registerContainer">
 		<div class="row">
-			<div class="col-sm-6 col-md-8 col-md-offset-1">
+			<div class="col-sm-12 col-md-8 col-md-offset-1">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3>Inscription</h3>
@@ -15,9 +15,10 @@
 									</div>
 								</div>
 								<div class="row">
+									
 									<div class="col-sm-12 col-md-10  col-md-offset-1 ">
 										<div class="form-group">
-										<div *ngIf="isFieldInvalid('nom')" class="help-block error">Nom requis</div>
+										<div *ngIf="isFieldInvalid('nom')" class="alert alert-warning">Nom requis</div>
 											<div class="input-group">
 												<span class="input-group-addon">
 													 <i class="pe-7s-user"></i>
@@ -26,7 +27,7 @@
 											</div>										
 										</div>
 										<div class="form-group">
-										<div *ngIf="isFieldInvalid('prenom')" class="help-block error">Prénom requis</div>
+										<div *ngIf="isFieldInvalid('prenom')" class="alert alert-warning">Prénom requis</div>
 											<div class="input-group">
 												<span class="input-group-addon">
 													 <i class="pe-7s-user"></i>
@@ -35,17 +36,17 @@
 											</div>
 										</div>
 										<div class="form-group">
-										<div *ngIf="isFieldInvalid('email')" class="help-block error">Email requis</div>
+										<div *ngIf="isFieldInvalid('email')" class="alert alert-warning">Email requis / Non valide</div>
 											<div class="input-group">
 												<span class="input-group-addon">
 													 <i class="pe-7s-user"></i>
 												</span> 
-												<input type="text" class="form-control" placeholder="Email" formControlName="email" required>
+												<input type="text" class="form-control" placeholder="Email" [pattern]="emailPattern" formControlName="email" required>
 												
 											</div>
 										</div>
 										<div class="form-group">
-										<div *ngIf="isFieldInvalid('password')" class="help-block error">Mot de passe requis</div>
+										<div *ngIf="isFieldInvalid('password')" class="alert alert-warning">Mot de passe requis</div>
 											<div class="input-group">
 												<span class="input-group-addon">
 													<i class="pe-7s-lock"></i>
@@ -63,7 +64,7 @@
 						</form>
 					</div>
 					<div class="panel-footer ">
-						déjà inscrit ? <a [routerLink]="['/login']"> Connectez-vous ici </a>
+						Déjà inscrit ? <a [routerLink]="['/login']"> Connectez-vous ici </a>
 					</div>
                 </div>
 			</div>

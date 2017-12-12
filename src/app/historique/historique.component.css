@@ -1,0 +1,27 @@
+tbody tr.info td:hover {
+    background: #266080;
+    color: #fff;
+    -webkit-transition-duration: 500ms;
+    -moz-transition-duration: 500ms;
+    -o-transition-duration: 500ms;
+    transition-duration: 500ms;
+    cursor: pointer;
+}
+
+.pagination { margin: 0px !important; }
+
+.details {
+    text-align: left;
+}
+
+@media screen and (max-width: 768px) {
+    p,.btn,input,div,span,h4 {
+      font-size: 96%;
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+  .details {
+     margin-left: 4%;
+    }
+  }  

@@ -5,6 +5,9 @@ import { User } from '../user';
 
 @Injectable()
 export class UserService {
+    users: any[] = JSON.parse(localStorage.getItem('users')) || [];
+    conges: any[] = JSON.parse(localStorage.getItem('conges')) || [];
+
     constructor(private http: Http) { }
 
     getAll() {
@@ -16,18 +19,39 @@ export class UserService {
     }
 
     create(user: User) {
-        return this.http.post('/api/users', user, this.jwt()).map((response: Response) => response.json());
+        console.log("Création de :" + user.nom);
+        let myUser = new User(user.nom, user.prenom, user.email, user.password);
+
+        // validation
+        let duplicateUser = this.users.filter(userExist => { return userExist.nom === user.nom; }).length;
+        if (duplicateUser) {
+            return false;
+        }
+        console.log("Inscription réussie");
+        myUser.id = this.users.length + 1;
+
+        this.users.push(myUser);
+        localStorage.setItem('users', JSON.stringify(this.users));
+        return true;
     }
 
-    update(user: User) {
-        return this.http.put('/api/users/' + user.id, user, this.jwt()).map((response: Response) => response.json());
+    update(userU: User) {
+
+        let id = userU.id;
+        for (let i = 0; i < this.users.length; i++) {
+            let user = this.users[i];
+            if (user.id === id) {
+                userU.password = user.password;
+                this.users.splice(i, 1);
+                this.users.push(userU);
+                localStorage.setItem('users', JSON.stringify(this.users));
+                localStorage.setItem('currentUser', JSON.stringify(userU));
+                return true;
+            }
+        }
     }
 
-    delete(id: number) {
-        return this.http.delete('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
-    }
 
-    // private helper methods
 
     private jwt() {
         // create authorization header with jwt token

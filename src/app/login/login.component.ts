@@ -1,8 +1,8 @@
 import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { NavbarService } from '../services/navbar.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod } from '@angular/http';
 
 @Component({
   selector: 'app-login',
@@ -10,27 +10,32 @@ import { NavbarService } from '../services/navbar.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-	model: any = {};
-    form: FormGroup;
-    private formSubmitAttempt: boolean;
-	showNav = true;
-    loading = false;
-	loginError =false;;
-	
+  model: any = {};
+  previousUrl: string;
+  form: FormGroup;
+  private formSubmitAttempt: boolean;
+  loading = false;
+  loginError = false;
+  register: any = { isRegistered: false, successMessage: '' };
+
   constructor(
-    private fb: FormBuilder, 
-	 public nav: NavbarService,
-	private router: Router,
+    private route: ActivatedRoute,
+    private http: Http,
+    private fb: FormBuilder,
+    private router: Router,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit() {
-	this.nav.hide();
-	this.authService.logout();  
+    if (this.route.snapshot.params['res']) {
+      this.register = { isRegistered: true, successMessage: 'Inscription réussie ! Vous pouvez maintenant vous connecter.' };
+    }
+    this.authService.logout();
     this.form = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
+
   }
 
   isFieldInvalid(field: string) {
@@ -40,26 +45,34 @@ export class LoginComponent implements OnInit {
     );
   }
 
-    login() {
-        this.loading = true;
-        this.authService.login(this.model.email, this.model.password)
-            .subscribe(
-                data => {
-					this.nav.show();
-                    this.router.navigate(['dashboard']);
-                },
-                error => {
-                    this.loading = false;
-					this.loginError = true;
-                });
-    }  
-  
+  login() {
+
+
+
+    this.loading = true;
+    if (this.authService.login(this.model.email, this.model.password)) {
+
+      this.router.navigate(['dashboard']);
+      this.loading = false;
+    }
+    else
+    {
+      this.register = { isRegistered: false, successMessage: '' };
+      this.loading = false;
+      this.loginError = true;
+
+    }
+  }
+
   onSubmit() {
     if (this.form.valid) {
-		this.model = this.form.value;
-		this.login();
-		console.log(this.form.value);
+      this.model = this.form.value;
+      this.login();
+      console.log(this.form.value);
     }
     this.formSubmitAttempt = true;
   }
+
+
+
 }

@@ -1,57 +1,83 @@
-<div class="main-content" >
+<div class="main-content">
     <div class="container-fluid">
         <div class="row">
+
+            <div class="col-lg-12 col-md-12">
+                <div routerLink="/profil">
+                    <div *ngIf=(!profilComplet) class="alert alert-warning">Attention ! Veuillez complêter votre profil avant de saisir une demande de congé.</div>
+                </div>
+            </div>
             <div class="col-md-12">
                 <div class="card">
-                    <div class="header">
-                        <h4 class="title">Demande de congé</h4>
-                    </div>
-                    <div class="content">
-                        <form>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Dâte départ</label>
-                                        <input type="date" class="form-control"  placeholder="Infotel" value="Infotel">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                            <div class="form-group">
-                                        <label>Dâte retour</label>
-                                        <input type="date" class="form-control"  placeholder="Infotel" value="Infotel">
-                                    </div>
-                                </div>
-                            </div>                              
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Motif</label>
-                                        <select id="select" class="form-control">
-										  <option value="CP" selected>Congés payé</option> 
-										  <option value="SS" >Congés sans solde</option>
-										  <option value="PC" >Pont client (si pas déjà fait collectivement)</option>
-										  <option value="CE" >Congé exceptionnel (preciser le motif)</option>
-										  <option value="RC" >Récupération pour astreinte ou jours fériés</option>
-										</select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 hidden">
-                                </div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 *ngIf="!update">Demande de congé</h3>
+                            <h3 *ngIf="update">Modification d'un congé</h3>
+                        </div>
+                        <div class="content">
+                            <div *ngIf="error.isError" class="alert alert-danger">
+                                {{ error.errorMessage }}
                             </div>
-                            <div class="row">
-								<div class="col-md-12">
-										<div class="form-group">
-											<label>Autres précisions</label>
-											<textarea class="form-control" name="comment" placeholder="..."></textarea>
-										</div>
-								</div>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-fill pull-right">Envoyer</button>
-                            <div class="clearfix"></div>
-                        </form>
+                            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Dâte départ</label>
+                                            <input type="date" class="form-control" name="dateDeb" [(ngModel)]="model.dateDeb" (blur)="checkdateDeb()" formControlName="dateDeb">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Dâte retour</label>
+                                            <input type="date" class="form-control" name="dateFin" [(ngModel)]="model.dateFin" (blur)="compareTwoDates()" (blur)="checkdateFin()"
+                                                formControlName="dateFin">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div *ngIf="isFieldInvalid('motif')" class="alert alert-warning">Motif requis</div>
+                                            <label for="select">Motif</label>
+                                            <select id="select" class="form-control" name="motif" [(ngModel)]="model.motif" formControlName="motif">
+                                                <option value="CP" selected>Congés payé</option>
+                                                <option value="SS">Congés sans solde</option>
+                                                <option value="PC">Pont client (si pas déjà fait collectivement)</option>
+                                                <option value="CE">Congé exceptionnel (preciser le motif)</option>
+                                                <option value="RC">Récupération pour astreinte ou jours fériés</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" *ngIf='demiJournee'>
+                                        <div class="form-group">
+
+                                            <label for="select">Demi Journée</label>
+                                            <select id="select" class="form-control" name="demiJournee" [(ngModel)]="model.demiJournee" formControlName="demiJournee">
+                                                <option value="m" selected>Matin</option>
+                                                <option value="a">Après-midi</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Autres précisions</label>
+                                            <textarea class="form-control" name="precision" [(ngModel)]="model.precision" formControlName="precision" placeholder="..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" [disabled]="error.isError || !this.form.valid || !profilComplet" *ngIf="!update" class="btn btn-primary btn-fill pull-right">Envoyer</button>
+
+                                <button type="submit"  [disabled]="error.isError || !this.form.valid || !profilComplet" *ngIf="update" class="btn btn-primary btn-fill pull-right">Modifier</button>
+                                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                                />
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>

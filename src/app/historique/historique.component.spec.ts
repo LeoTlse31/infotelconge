@@ -11,9 +11,9 @@ describe('HistoriqueComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HistoriqueComponent ]
+      declarations: [HistoriqueComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

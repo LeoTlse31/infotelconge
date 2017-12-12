@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,20 +8,25 @@ import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  currentUser: any = {};
+  constructor(private authService: AuthService, public location: Location, private cdRef: ChangeDetectorRef) { }
 
-     constructor(public location: Location) {}
+  ngOnInit() {
+  }
 
-    ngOnInit(){
+  isMap(path) {
+    let titlee = this.location.prepareExternalUrl(this.location.path());
+    titlee = titlee.slice(1);
+    if (path === titlee) {
+      return false;
+    } else {
+      return true;
     }
+  }
+  get userLogged() { return this.authService.loggedIn2(); };
 
-    isMap(path){
-      var titlee = this.location.prepareExternalUrl(this.location.path());
-      titlee = titlee.slice( 1 );
-      if(path == titlee){
-        return false;
-      }
-      else {
-        return true;
-      }
-    }
+  ngAfterViewChecked() {
+
+    this.cdRef.detectChanges();
+  }
 }

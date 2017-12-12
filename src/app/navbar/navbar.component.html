@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default"  *ngIf="nav.visible">
+<nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" (click)="sidebarToggle()">
@@ -7,15 +7,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#" >{{getTitle()}}</a>
+            <a class="navbar-brand" href="#">{{getTitle()}}</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                        <p class="navbar-brand">Bonjour {{currentUser.prenom}},</p>
-						
+                <li *ngIf="isLoggedIn$">
+                    <p class="navbar-brand">Bonjour {{authService.currentUser?.prenom}},</p>
                 </li>
-
                 <li class="separator hidden-lg hidden-md"></li>
             </ul>
         </div>

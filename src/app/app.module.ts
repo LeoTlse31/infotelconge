@@ -4,11 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
-import { BackendProvider } from './services/backend';
-import { MockBackend, MockConnection } from '@angular/http/testing';
-import { BaseRequestOptions } from '@angular/http';
 
 import { AppRoutingModule } from './app.routing';
 import { NavbarModule } from './navbar/navbar.module';
@@ -18,7 +16,7 @@ import { SidebarModule } from './sidebar/sidebar.module';
 import { AuthGuard } from './services/auth.guard';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
-import { NavbarService } from './services/navbar.service';
+import { CongeService } from './services/conge.service';
 
 import { AppComponent } from './app.component';
 import { AccueilComponent } from './accueil/accueil.component';
@@ -36,10 +34,10 @@ import './rxjs-operators';
     AppComponent,
     AccueilComponent,
     ProfilComponent,
-	SaisieComponent,
-	HistoriqueComponent,
-	LoginComponent,
-	RegisterComponent
+    SaisieComponent,
+    HistoriqueComponent,
+    LoginComponent,
+    RegisterComponent
 
   ],
   imports: [
@@ -48,12 +46,13 @@ import './rxjs-operators';
     HttpModule,
     NavbarModule,
     FooterModule,
-	ReactiveFormsModule,
+    ReactiveFormsModule,
     SidebarModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [AuthService,NavbarService, AuthGuard,BackendProvider,UserService,MockBackend,BaseRequestOptions],
+  providers: [AuthService, AuthGuard, CongeService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

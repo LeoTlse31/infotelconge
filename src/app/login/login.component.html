@@ -1,54 +1,61 @@
-    <div class="container loginContainer">
-		<div class="row">
-			<div class="col-sm-6 col-md-8 col-md-offset-1">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3>Connexion</h3>
-					</div>
-					<div class="panel-body">
-						<form [formGroup]="form" (ngSubmit)="onSubmit()">
-							<fieldset>
-								<div class="row">
-									<div class="center-block">
-										<img class="profile-img"
-											src="../assets/img/default-avatar.png" alt="">
-									</div>
+<div class="container loginContainer">
+	<div class="row">
+		<div class="col-sm-12 col-md-8 col-md-offset-1">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3>Connexion</h3>
+				</div>
+				<div class="panel-body">
+					<form [formGroup]="form" (ngSubmit)="onSubmit()">
+						<fieldset>
+							<div class="row">
+								<div class="center-block">
+									<img class="profile-img" src="../assets/img/default-avatar.png" alt="">
 								</div>
-								<div *ngIf="loginError" class="error">Email / Mot de passe invalide !</div>
-								<div class="row">
-									<div class="col-sm-12 col-md-10  col-md-offset-1 ">
-										<div class="form-group">
-											<div class="input-group">
-												<span class="input-group-addon">
-													 <i class="pe-7s-user"></i>
-												</span> 
-												<input type="text" class="form-control" placeholder="Email" formControlName="email" required>
-												<div *ngIf="isFieldInvalid('email')" class="help-block">Email requis</div>
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="input-group">
-												<span class="input-group-addon">
-													<i class="pe-7s-lock"></i>
-												</span>
-												<input type="password" class="form-control" placeholder="Password" formControlName="password" required>
-												<div *ngIf="isFieldInvalid('password')" class="help-block">Mot de passe requis</div>
-											</div>
-										</div>
-										<div class="form-group">
-											<input type="submit" class="btn btn-lg btn-primary btn-block" value="Connexion">
-										</div>
-										<img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-            
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12 col-md-10  col-md-offset-1 ">
+									<div *ngIf="loginError" class="alert alert-danger">Email / Mot de passe invalide !</div>
+									<div *ngIf="register.isRegistered" class="alert alert-success">
+										{{ register.successMessage }}
 									</div>
+									<div class="form-group">
+										<div *ngIf="isFieldInvalid('email')" class="alert alert-warning">Email requis</div>
+										<div class="input-group">
+											<span class="input-group-addon">
+												<i class="pe-7s-user"></i>
+											</span>
+											<input type="text" class="form-control" placeholder="Email" formControlName="email" required>
+										</div>
+
+									</div>
+									<div class="form-group">
+										<div *ngIf="isFieldInvalid('password')" class="alert alert-warning">Mot de passe requis</div>
+										<div class="input-group">
+											<span class="input-group-addon">
+												<i class="pe-7s-lock"></i>
+											</span>
+											<input type="password" class="form-control" placeholder="Mot de passe" formControlName="password" required>
+
+										</div>
+									</div>
+									<div class="form-group">
+										<input type="submit" class="btn btn-lg btn-primary btn-block" value="Connexion">
+									</div>
+									<img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+									/>
+
 								</div>
-							</fieldset>
-						</form>
-					</div>
-					<div class="panel-footer ">
-						Pas de compte ? <a [routerLink]="['/register']"> Inscrivez-vous ici </a>
-					</div>
-                </div>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+				<div class="panel-footer ">
+					Pas de compte ?
+					<a [routerLink]="['/register']"> Inscrivez-vous ici </a>
+				</div>
 			</div>
 		</div>
 	</div>
+</div>

@@ -8,25 +8,44 @@ import { User } from '../user';
 
 @Injectable()
 export class AuthService {
-  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  get isLoggedIn() {
-    return this.loggedIn.asObservable();
-  }
-  constructor(
-    private router: Router,private http: Http
-  ) {}
+    private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    currentUser: any;
+    get isLoggedIn() {
+        return this.loggedIn.asObservable();
+    }
+    users: any[] = JSON.parse(localStorage.getItem('users')) || [];
+    constructor(
 
-      login(email: string, password: string) {
-        return this.http.post('/api/authenticate', JSON.stringify({ email: email, password: password }))
-            .map((response: Response) => {
-                
-                let user = response.json();
-                if (user && user.token) {
-                    this.loggedIn.next(true);
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                }
-            });
+        private router: Router, private http: Http
+    ) {
+        if (JSON.parse(localStorage.getItem('currentUser'))) {
+
+            this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        }
+    }
+
+    loggedIn2() {
+
+        return localStorage.getItem('currentUser');
+    }
+
+    login(email: string, password: string) {
+        let filteredUsers = this.users.filter(user => {
+            return user.email === email && user.password === password;
+        });
+
+        if (filteredUsers.length) {
+            console.log("Connexion réussie");
+            let userC = filteredUsers[0];
+            this.currentUser = userC;
+            this.loggedIn.next(true);
+            localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+            return true;
+        } else {
+
+            return false;
+        }
     }
 
     logout() {
