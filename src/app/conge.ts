@@ -43,7 +43,7 @@ export class Conge {
   public calculateDuration() {
 
     this.duree = moment(this.dateDeb, 'YYYY-MM-DD').businessDiff(moment(this.dateFin, 'YYYY-MM-DD'));
-    if (this.duree === 0 ) { this.duree = 0.5;}
+    if (this.duree === 0 ) { this.duree = 0.5; }
 
 
   }
