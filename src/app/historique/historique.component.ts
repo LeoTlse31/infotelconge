@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CongeService } from '../services/conge.service';
 import { Router } from '@angular/router';
-import {Motif} from '../Motif';
+import {Motif} from '../modele/Motif';
 @Component({
   selector: 'app-historique',
   templateUrl: './historique.component.html',
@@ -26,6 +26,7 @@ export class HistoriqueComponent implements OnInit {
 
    }
 
+   
   ngOnInit() {
 
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));

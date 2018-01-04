@@ -3,7 +3,7 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from './../services/auth.service';
-
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
     // moduleId: module.id,
     selector: 'navbar-cmp',
@@ -22,8 +22,11 @@ export class NavbarComponent implements OnInit {
         return !this.isLoggedIn$;
     }
 
-    constructor(location: Location, private cdRef: ChangeDetectorRef, private element: ElementRef, private authService: AuthService) {
+    constructor(location: Location, private router : Router,private cdRef: ChangeDetectorRef, private element: ElementRef, private authService: AuthService) {
         this.location = location;
+        router.events.subscribe((val) => {
+            this.sidebarClose();
+        });
     }
 
     userLogged() { return JSON.parse(localStorage.getItem('currentUser')); };
@@ -40,7 +43,9 @@ export class NavbarComponent implements OnInit {
     ngAfterViewChecked() {
 
         this.cdRef.detectChanges();
+        
     }
+    
     sidebarOpen() {
         const toggleButton = this.toggleButton;
         const body = document.getElementsByTagName('body')[0];
@@ -59,7 +64,6 @@ export class NavbarComponent implements OnInit {
 
     };
     sidebarToggle() {
-        console.log(this.sidebarVisible);
         // const toggleButton = this.toggleButton;
         // const body = document.getElementsByTagName('body')[0];
         if (this.sidebarVisible === false) {

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
-import { Conge } from '../conge';
-import { User } from '../user';
+import { Conge } from '../modele/conge';
+import { User } from '../modele/user';
 
 @Injectable()
 export class CongeService {
@@ -23,10 +23,9 @@ export class CongeService {
     }
 
     getByID(id: number) {
-   
         for (let i = 0; i < this.conges.length; i++) {
             let conge = this.conges[i];
-            if (conge.id = id) {
+            if (conge.id == id) {
                 let congeC = conge;
                 return congeC;
             }
@@ -37,18 +36,23 @@ export class CongeService {
     create(conge: Conge, user : User) {
 
         let myConge = new Conge(conge.dateDeb, conge.dateFin, conge.motif, conge.precision, conge.idUser,conge.demiJournee);
-        let duplicateConge = this.conges.filter(congeExist => { return congeExist.dateDeb === conge.dateDeb; }).length;
+        const duplicateConge = this.conges.filter(congeExist => { return congeExist.dateDeb === conge.dateDeb; }).length;
         if (duplicateConge) {
             return false;
         }
-        console.log("Demande réussie");
+        console.log('Demande réussie');
+        if (this.conges.length > 0) {
+            myConge.id = this.conges[this.conges.length-1].id+1;
+        }
+        else {
         myConge.id = this.conges.length + 1;
-
+        }
         this.conges.push(myConge);
         localStorage.setItem('conges', JSON.stringify(this.conges));
         this.send(myConge,user);
-        // respond OK
+
         return true;
+
     }
 
     send(conge: Conge,user : User) {
@@ -60,7 +64,7 @@ export class CongeService {
     }
 
     update(congeU: Conge) {
-        console.log("tentative update", congeU.id);
+        console.log('tentative update', congeU.id);
         let id = congeU.id;
         let myConge = new Conge(congeU.dateDeb, congeU.dateFin, congeU.motif, congeU.precision, congeU.idUser,congeU.demiJournee);
         
@@ -75,7 +79,7 @@ export class CongeService {
                 this.conges.splice(i, 1);
                 this.conges.push(myConge);
                 localStorage.setItem('conges', JSON.stringify(this.conges));
-                console.log("update success");
+                console.log('update success');
                 return true;
             }
         }
@@ -84,8 +88,7 @@ export class CongeService {
     delete(id: number) {
         for (let i = 0; i < this.conges.length; i++) {
             let conge = this.conges[i];
-            if (conge.id = id) {
-                // delete user
+            if (conge.id == id) {
                 this.conges.splice(i, 1);
                 localStorage.setItem('conges', JSON.stringify(this.conges));
                 return true;

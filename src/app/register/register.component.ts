@@ -19,7 +19,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -44,7 +45,7 @@ export class RegisterComponent implements OnInit {
   }
   register() {
     this.loading = true;
-    if (this.userService.create(this.model)) {
+    if (this.authService.register(this.model)) {
       this.router.navigate(['login', { res: 'success' }]);
 
     }

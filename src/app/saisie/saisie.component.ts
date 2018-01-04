@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CongeService } from '../services/conge.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
+import * as moment from 'moment-business-days';
 
 @Component({
   selector: 'app-saisie',
@@ -29,7 +30,7 @@ export class SaisieComponent implements OnInit {
     private cdRef: ChangeDetectorRef) { }
 
   ngOnInit() {
-
+    const today = moment().format('YYYY-MM-DD');
     this.update = false;
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (this.route.snapshot.params['id']) {
@@ -81,10 +82,28 @@ export class SaisieComponent implements OnInit {
 
     }
   }
+  deleteConge(id: number) {
+    this.loading = true;
+
+    if (this.congeService.delete(id)) {
+      swal({
+        type: 'success',
+        title: 'Congé supprimé.',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      this.loading = false;
+      this.router.navigate(['historique']);
+    } else {
+      this.loading = false;
+    }
+    this.formSubmitAttempt = false;
+  }
+
 
   modifierDemande() {
     this.loading = true;
-
+   
     if (this.congeService.update(this.model)) {
       swal({
         type: 'success',
@@ -100,7 +119,6 @@ export class SaisieComponent implements OnInit {
   }
 
   compareTwoDates() {
-    console.log(new Date(this.form.controls['dateDeb'].value).getDay());
     if (new Date(this.form.controls['dateDeb'].value) > new Date(this.form.controls['dateFin'].value)) {
       this.error = { isError: true, errorMessage: 'Attention ! La date de retour ne peut pas être antérieure à la date de départ' };
     } else if ((this.form.controls['dateDeb'].value) === (this.form.controls['dateFin'].value)) {
@@ -129,7 +147,7 @@ export class SaisieComponent implements OnInit {
     if (this.congeService.getByID(this.idConge)) {
       this.loading = false;
       this.model = this.congeService.getByID(this.idConge);
-
+      console.log(this.model);
     } else {
       this.loading = false;
       console.log('fail');

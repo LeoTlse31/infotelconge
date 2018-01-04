@@ -47,16 +47,13 @@ export class LoginComponent implements OnInit {
 
   login() {
 
-
-
     this.loading = true;
     if (this.authService.login(this.model.email, this.model.password)) {
 
       this.router.navigate(['dashboard']);
       this.loading = false;
     }
-    else
-    {
+    else {
       this.register = { isRegistered: false, successMessage: '' };
       this.loading = false;
       this.loginError = true;

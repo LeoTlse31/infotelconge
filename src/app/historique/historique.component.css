@@ -25,3 +25,7 @@ tbody tr.info td:hover {
      margin-left: 4%;
     }
   }  
+
+  [data-toggle~="collapse"] {
+    cursor: pointer;
+}

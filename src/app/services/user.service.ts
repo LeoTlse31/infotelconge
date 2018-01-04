@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
-import { User } from '../user';
+import { User } from '../modele/user';
 
 @Injectable()
 export class UserService {
@@ -18,28 +18,12 @@ export class UserService {
         return this.http.get('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
-    create(user: User) {
-        console.log("Création de :" + user.nom);
-        let myUser = new User(user.nom, user.prenom, user.email, user.password);
-
-        // validation
-        let duplicateUser = this.users.filter(userExist => { return userExist.nom === user.nom; }).length;
-        if (duplicateUser) {
-            return false;
-        }
-        console.log("Inscription réussie");
-        myUser.id = this.users.length + 1;
-
-        this.users.push(myUser);
-        localStorage.setItem('users', JSON.stringify(this.users));
-        return true;
-    }
 
     update(userU: User) {
 
-        let id = userU.id;
+        const id = userU.id;
         for (let i = 0; i < this.users.length; i++) {
-            let user = this.users[i];
+            const user = this.users[i];
             if (user.id === id) {
                 userU.password = user.password;
                 this.users.splice(i, 1);
@@ -55,9 +39,9 @@ export class UserService {
 
     private jwt() {
         // create authorization header with jwt token
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.token) {
-            let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
+            const headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
             return new RequestOptions({ headers: headers });
         }
     }
