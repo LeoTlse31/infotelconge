@@ -1,7 +1,7 @@
 {
-  "name": "Progressive Web Cat",
-  "short_name": "PWCat",
-  "description": "A funny cat image generator",  
+  "name": "Infotel Gestion des Congés",
+  "short_name": "Infotel Congé",
+  "description": "Gestionnaire de congés",  
   "icons": [{
     "src": "assets/icon-128x128.png",
       "sizes": "128x128",
