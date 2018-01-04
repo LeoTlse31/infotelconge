@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CongeService } from '../services/conge.service';
 import { Router } from '@angular/router';
-import {Motif} from '../modele/Motif';
+import { Motif } from '../modele/motif';
+
 @Component({
   selector: 'app-historique',
   templateUrl: './historique.component.html',
