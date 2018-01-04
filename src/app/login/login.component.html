@@ -17,7 +17,7 @@
 
 							<div class="row">
 								<div class="col-sm-12 col-md-10  col-md-offset-1 ">
-									<div *ngIf="loginError" class="alert alert-danger">Email / Mot de passe invalide !</div>
+									<div *ngIf="loginError.isError" class="alert alert-danger">{{loginError.Message}}</div>
 									<div *ngIf="register.isRegistered" class="alert alert-success">
 										{{ register.successMessage }}
 									</div>

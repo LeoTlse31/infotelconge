@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   private formSubmitAttempt: boolean;
   loading = false;
-  loginError = false;
+  loginError: any = { isError: false, Message: '' };
   register: any = { isRegistered: false, successMessage: '' };
 
   constructor(
@@ -28,8 +28,16 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.route.snapshot.params['res']) {
-      this.register = { isRegistered: true, successMessage: 'Inscription réussie ! Vous pouvez maintenant vous connecter.' };
+      this.register = { isRegistered: true, successMessage: 'Inscription réussie ! Un email de validation vous a été envoyé.' };
     }
+    if (this.route.snapshot.params['accountverify'] && this.route.snapshot.params['tkn']) {
+      if (this.authService.activeAccount(this.route.snapshot.params['accountverify'],this.route.snapshot.params['tkn'])) {
+        this.register = { isRegistered: true, successMessage: 'Compte validé ! Vous pouvez maintenant vous connecter.' };
+      }
+      else {
+        this.loginError = { isError: true, Message: 'Compte déjà valide / Erreur dans le lien.' };
+      }
+     }
     this.authService.logout();
     this.form = this.fb.group({
       email: ['', Validators.required],
@@ -52,11 +60,11 @@ export class LoginComponent implements OnInit {
 
       this.router.navigate(['dashboard']);
       this.loading = false;
-    }
-    else {
+    } else {
       this.register = { isRegistered: false, successMessage: '' };
       this.loading = false;
-      this.loginError = true;
+      this.loginError = { isError: true, Message: 'Identifiant / Mot de passe incorrect.' };
+
 
     }
   }

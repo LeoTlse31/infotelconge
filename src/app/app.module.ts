@@ -26,8 +26,10 @@ import { HistoriqueComponent } from './historique/historique.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
-
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 import './rxjs-operators';
+
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import './rxjs-operators';
     SidebarModule,
     RouterModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+	environment.production ? ServiceWorkerModule.register('ngsw-worker.js') : []
   ],
   providers: [AuthService, AuthGuard, CongeService, UserService],
   bootstrap: [AppComponent]

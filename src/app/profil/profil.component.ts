@@ -44,7 +44,7 @@ export class ProfilComponent implements OnInit {
   }
 
 
-  onSubmit(form: any): void {
+  onSubmit() {
     this.model = this.currentUser;
     this.model.nom = this.form.value.nom;
     this.model.prenom = this.form.value.prenom;

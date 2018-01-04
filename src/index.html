@@ -10,7 +10,8 @@
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
-
+	<meta name="theme-color" content="#673ab7">
+	<link rel="manifest" href="manifest.json">
 
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -26,9 +27,17 @@
     <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
 </head>
 <body>
-  <app-root>
-      <div id="loader"><img src="assets/img/loader-infotel.svg" alt="Chargement..."></div>
-  </app-root>
+<noscript>
+  <h3 style="color: #673ab7; font-family: Helvetica; margin: 2rem;">
+      Sorry, but app is not available without javascript
+  </h3>
+</noscript>
+<app-root>
+  <nav 
+    style="background-color: #673ab7; height: 56px; width: 100%">
+  </nav>
+  <div id="loader"><img src="assets/img/loader-infotel.svg" alt="Chargement..."></div>
+</app-root>
 </body>
 
 

@@ -1,6 +1,6 @@
 .logo-img1 {
 	
-	width:250px;
+  width:250px;
 	padding-left:20%;
 	padding-top: 2%; 
 }
@@ -14,6 +14,10 @@ text-align:left;
 td,th{
 	
 text-align:center;
+}
+
+.alert {
+  border-radius: 4px !important; 
 }
 
 
