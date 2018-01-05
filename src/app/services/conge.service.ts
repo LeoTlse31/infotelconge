@@ -40,7 +40,6 @@ export class CongeService {
         if (duplicateConge) {
             return false;
         }
-        console.log('Demande réussie');
         if (this.conges.length > 0) {
             myConge.id = this.conges[this.conges.length-1].id+1;
         }
@@ -59,12 +58,10 @@ export class CongeService {
         let body = {conge,user};
          this.httpClient.post('http://localhost:8080/api/sendconge', body)
         .subscribe(function(data) {
-                console.log(data);
         });
     }
 
     update(congeU: Conge) {
-        console.log('tentative update', congeU.id);
         let id = congeU.id;
         let myConge = new Conge(congeU.dateDeb, congeU.dateFin, congeU.motif, congeU.precision, congeU.idUser,congeU.demiJournee);
         
@@ -79,7 +76,6 @@ export class CongeService {
                 this.conges.splice(i, 1);
                 this.conges.push(myConge);
                 localStorage.setItem('conges', JSON.stringify(this.conges));
-                console.log('update success');
                 return true;
             }
         }

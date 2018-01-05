@@ -4,8 +4,7 @@ import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
 
 @Component({
   selector: 'app-accueil',
-  templateUrl: './accueil.component.html',
-  styleUrls: ['./accueil.component.css']
+  templateUrl: './accueil.component.html'
 })
 export class AccueilComponent implements OnInit {
   currentUser: any = {};

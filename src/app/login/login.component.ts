@@ -73,7 +73,6 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       this.model = this.form.value;
       this.login();
-      console.log(this.form.value);
     }
     this.formSubmitAttempt = true;
   }

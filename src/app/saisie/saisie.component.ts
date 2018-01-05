@@ -143,14 +143,11 @@ export class SaisieComponent implements OnInit {
 
   getCongeByID() {
     this.loading = true;
-    console.log('id passé', this.idConge);
     if (this.congeService.getByID(this.idConge)) {
       this.loading = false;
       this.model = this.congeService.getByID(this.idConge);
-      console.log(this.model);
     } else {
       this.loading = false;
-      console.log('fail');
 
     }
   }

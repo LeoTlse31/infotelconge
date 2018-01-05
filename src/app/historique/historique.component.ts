@@ -109,7 +109,6 @@ export class HistoriqueComponent implements OnInit {
 
 
   updateConge(id: number) {
-    console.log(id);
     this.router.navigate(['saisie', { id: id }]);
   }
 }

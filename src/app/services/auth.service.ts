@@ -28,7 +28,6 @@ export class AuthService {
         let body = { user };
         this.httpClient.post('http://192.168.30.46:8080/api/verifyaccount', body)
             .subscribe(function (data) {
-                console.log(data);
             });
     }
 
@@ -52,7 +51,6 @@ export class AuthService {
         });
 
         if (filteredUsers.length) {
-            console.log('Connexion réussie');
             const userC = filteredUsers[0];
             if (userC.compteValide) {
                 this.currentUser = userC;
@@ -70,7 +68,6 @@ export class AuthService {
     }
 
     register(user: User) {
-        console.log('Création de :' + user.nom);
         const myUser = new User(user.nom, user.prenom, user.email, user.password);
 
 
@@ -78,7 +75,6 @@ export class AuthService {
         if (duplicateUser) {
             return false;
         }
-        console.log('Inscription réussie');
         myUser.id = this.users.length + 1;
         myUser.token = this.token();
         this.users.push(myUser);
